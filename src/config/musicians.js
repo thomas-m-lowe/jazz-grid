@@ -1,11 +1,11 @@
 export const rowMusicians = [
-    "Miles Davis",
-    "John Coltrane",
+    "Chick Corea",
     "Herbie Hancock",
+    "Ron Carter",
   ];
   
   export const columnMusicians = [
+    "Miles Davis",
     "Wayne Shorter",
-    "Ron Carter",
-    "Anthony Williams",
+    "Joe Henderson",
   ];
