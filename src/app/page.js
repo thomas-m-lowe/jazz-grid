@@ -1,3 +1,4 @@
+// src/app/page.js
 "use client";
 
 import { useState, useEffect } from "react";
@@ -86,8 +87,6 @@ export default function Home() {
     const guess = cell?.guess || "";
     const today = getToday();
 
-    console.log(`📡 Sending guess [${r},${c}]:`, guess);
-
     try {
       const res = await fetch("/api/check-guess", {
         method: "POST",
@@ -106,7 +105,6 @@ export default function Home() {
         }),
       });
       const data = await res.json();
-      console.log("📥 /api/check-guess response:", data);
 
       const g = grid.map((row) => row.slice());
       if (!g[r]) g[r] = [];
@@ -144,7 +142,6 @@ export default function Home() {
 
   const handleResetGrid = async () => {
     const today = getToday();
-    console.log("🔄 Resetting today's grid (client)");
 
     try {
       const res = await fetch("/api/reset-grid", {
@@ -156,7 +153,6 @@ export default function Home() {
       });
       const json = await res.json();
       if (!json.success) throw new Error(json.error || "Server reset failed");
-      console.log("✅ Server grid reset successful");
     } catch (err) {
       console.error("❌ Error resetting server grid:", err);
     }
@@ -188,7 +184,10 @@ export default function Home() {
           onSubmit={handleNameSubmit}
           className="bg-white p-6 rounded shadow-md"
         >
-          <h2 className="text-xl mb-4">Enter your name to start playing</h2>
+          {/* prompt text now black */}
+          <h2 className="text-xl mb-4 text-black">
+            Enter your name to start playing
+          </h2>
           <input
             type="text"
             value={name}
