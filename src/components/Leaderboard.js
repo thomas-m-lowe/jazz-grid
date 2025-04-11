@@ -26,7 +26,8 @@ export default function Leaderboard() {
 
   return (
     <div className="mt-8 p-4 border rounded max-w-md">
-      <h2 className="text-2xl font-bold mb-2">Today's Leaderboard</h2>
+      {/* Escaped apostrophe */}
+      <h2 className="text-2xl font-bold mb-2">Today&apos;s Leaderboard</h2>
       <button
         onClick={load}
         className="mb-4 bg-green-500 text-white px-3 py-1 rounded cursor-pointer"
