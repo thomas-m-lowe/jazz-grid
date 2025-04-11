@@ -211,160 +211,74 @@ export default function Home() {
     );
   }
 
-  return (
-    <main className="min-h-screen flex flex-col items-center p-4">
-      {/* Title without "Puzzle" */}
-      <h1 className="text-3xl font-bold mb-2">Jazz Grid</h1>
-      <p className="mb-4">Hello, {name}!</p>
+return (
+  <main className="min-h-screen flex flex-col items-center p-4">
+    <h1 className="text-3xl font-bold mb-2">Jazz Grid</h1>
+    <p className="mb-4">Hello, {name}!</p>
 
-      {/* Reset button */}
-      <button
-        onClick={handleResetGrid}
-        className="mb-4 bg-yellow-500 text-white px-3 py-1 rounded cursor-pointer"
-      >
-        Reset Today's Grid
-      </button>
+    <button
+      onClick={handleResetGrid}
+      className="mb-4 bg-yellow-500 text-white px-3 py-1 rounded cursor-pointer"
+    >
+      Reset Today's Grid
+    </button>
 
-      {/* Grid */}
-      <div className="overflow-auto">
-        <table className="border-collapse">
-          <thead>
-            <tr>
-              <th className="border p-2"></th>
-              {columnMusicians.map((col, ci) => (
-                <th key={ci} className="border p-2 text-center">
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rowMusicians.map((rowName, ri) => (
-              <tr key={ri}>
-                <th className="border p-2 text-center">{rowName}</th>
-                {columnMusicians.map((_, ci) => {
-                  const cell = grid[ri]?.[ci] ?? {
-                    guess: "",
-                    isCorrect: null,
-                    rarity: null,
-                    cover: null,
-                    alreadyGuessed: false,
-                    submitted: false,
-                  };
-                  return (
-                    <td
-                      key={ci}
-                      className="border p-2 w-40 h-32 relative"
-                    >
-                      {cell.submitted ? (
-                        cell.alreadyGuessed ? (
-                          <div className="text-center text-sm text-yellow-800">
-                            Already guessed
-                          </div>
-                        ) : cell.isCorrect ? (
-                          <div className="flex flex-col items-center">
-                            {cell.cover && (
-                              <img
-                                src={cell.cover}
-                                alt={cell.guess}
-                                className="w-20 h-20 object-cover mb-1"
-                              />
-                            )}
-                            <div className="text-xs text-gray-600">
-                              {cell.rarity}%
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-red-200 text-red-600 font-bold">
-                            X
-                          </div>
-                        )
-                      ) : (
-                        <div>
-                          <input
-                            type="text"
-                            value={cell.guess}
-                            onChange={(e) =>
-                              handleInputChange(ri, ci, e.target.value)
-                            }
-                            placeholder="Album"
-                            className="w-full p-1 border rounded text-sm"
-                          />
-                          <button
-                            onClick={() => handleGuessSubmit(ri, ci)}
-                            className="mt-1 w-full bg-blue-500 text-white rounded p-1 text-sm cursor-pointer"
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    {/* grid markup here */}
 
-      {/* Leaderboard */}
-      <div className="w-full max-w-md mt-8">
-        <Leaderboard />
-      </div>
+    <div className="w-full max-w-md mt-8">
+      <Leaderboard />
+    </div>
 
-      {/* Footer: Twitter, PayPal, Instructions */}
-      <footer className="mt-8 text-center space-y-4">
-        <p>
-          Follow me on Twitter:{" "}
-          <a
-            href="https://x.com/tomislowe"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 underline"
+    {/* Footer with instructions */}
+    <footer className="mt-8 text-center space-y-4">
+      <p>
+        Follow me on Twitter:{" "}
+        <a
+          href="https://x.com/tomislowe"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 underline"
+        >
+          @tomislowe
+        </a>
+      </p>
+      <p>
+        Help me keep this site running:{" "}
+        <form
+          action="https://paypal.me/jazzgrids?country.x=US&locale.x=en_US"
+          method="post"
+          target="_blank"
+        >
+          <input
+            type="hidden"
+            name="business"
+            value="YOUR_PAYPAL_BUSINESS_ID"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
           >
-            @tomislowe
-          </a>
-        </p>
-        <p>
-          Help me keep this site running:{" "}
-          {/* PayPal donate button - replace YOUR_PAYPAL_BUSINESS_ID with yours */}
-          <form
-            action="https://paypal.me/jazzgrids?country.x=US&locale.x=en_US"
-            method="post"
-            target="_blank"
-          >
-            <input
-              type="hidden"
-              name="business"
-              value="YOUR_PAYPAL_BUSINESS_ID"
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
-            >
-              Donate via PayPal
-            </button>
-          </form>
-        </p>
-        <div className="text-left max-w-md mx-auto">
-          <h3 className="font-bold mb-1">How to play:</h3>
-          <ol className="list-decimal list-inside space-y-1 text-sm">
-            <li>
-              Guess an album that both the row and column musicians played on.
-              Percentage of people who guessed the same album is displayed after
-              a guess — try to get the deepest cut
-            </li>
-            <li>Grid resets daily, check back tomorrow</li>
-            <li>
-              DM me on Twitter if it doesn't work/with other stuff I
-              should add
-            </li>
-          </ol>
-        </div>
-      </footer>
-    </main>
-  );
+            Donate via PayPal
+          </button>
+        </form>
+      </p>
+      <div className="text-left max-w-md mx-auto">
+        <h3 className="font-bold mb-1">How to play:</h3>
+        <ol className="list-decimal list-inside space-y-1 text-sm">
+          <li>
+            Guess an album that both the row and column musicians played on.
+            Percentage of people who guessed the same album is displayed after
+            a guess—try to get the deepest cut.
+          </li>
+          <li>Grid resets daily—check back tomorrow.</li>
+          <li>
+            DM me on Twitter if it doesn&apos;t work or if there&rsquo;s other
+            stuff I should add.
+          </li>
+        </ol>
+      </div>
+    </footer>
+  </main>
+);
 }
-
-
 
